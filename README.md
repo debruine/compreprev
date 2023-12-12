@@ -1,3 +1,5 @@
-# Basic ShinyDashboard Template
+# CompRepRev
 
-A starting template to make apps with shinydashboard.
+A shiny app to help with computational reproducibility reviews.
+
+Created by Lisa DeBruine, Tom Hardwicke, Frederick Aust, and Rich Lucas at the Psych Science Garage Project in Melbourne in 2023.
