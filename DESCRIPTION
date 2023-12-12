@@ -1,5 +1,38 @@
-Title: CompRepRev
-Author: Lisa DeBruine, Tom Hardwicke, Frederick Aust, Rich Lucas
-License: CC-BY-4.0
-DisplayMode: Normal
-Type: Shiny
+Package: compreprev
+Title: Computational Reproducibility Review
+Version: 0.0.9000
+Authors@R: 
+    c(person(given = "Lisa",
+           family = "DeBruine",
+           role = c("cre", "aut"),
+           email = "debruine@gmail.com",
+           comment = c(ORCID = "0000-0002-7523-5539")),
+      person(given = "Tom",
+           family = "Hardwicke",
+           role = c("aut"),
+           email = "tom.hardwicke@unimelb.edu.au",
+           comment = c(ORCID = "0000-0001-9485-4952")),     
+      person(given = "Frederick",
+           family = "Aust",
+           role = c("aut"),
+           email = "frederik.aust@uni-koeln.de",
+           comment = c(ORCID = "0000-0003-4900-788X")),
+      person(given = "Richard",
+           family = "Lucas",
+           role = c("aut"),
+           email = "lucasri@msu.edu",
+           comment = c(ORCID = "0000-0002-7995-3319"))
+    )
+Description: A shiny app to help with computational reproducibility reviews.
+License: CC BY 4.0
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    shiny,
+    shinyjs,
+    shinydashboard,
+    shinyWidgets
+Depends: 
+    R (>= 2.10)
