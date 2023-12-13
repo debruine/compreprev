@@ -18,7 +18,7 @@ run_tab <- tabItem(
     ),
     status = "danger"
   ),
-  h3("Critial Issues", class="critical-issue"),
+  h3("Critical Issues", class="critical-issue"),
   awesomeCheckboxGroup(
     inputId = "run_yellow",
     label = "", 

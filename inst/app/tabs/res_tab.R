@@ -7,7 +7,7 @@ res_tab <- tabItem(
       p("For any discrepancies, please quote the relevant report text (or Figure/Table number) and code (by line numbers) in the boxes below.")
   ),
   
-  h3("Critial Issues", class="critical-issue"),
+  h3("Fatal Issues", class="fatal-issue"),
   awesomeCheckboxGroup(
     inputId = "res_red",
     label = "", 
@@ -22,7 +22,7 @@ res_tab <- tabItem(
   textAreaInput("res_major", "Major Discrepancies"),
   textAreaInput("res_missing", "Missing Results"),
   
-  h3("Other Issues", class="other-issue"),
+  h3("Critical Issues", class="critical-issue"),
   awesomeCheckboxGroup(
     inputId = "res_yellow",
     label = "", 
@@ -46,5 +46,5 @@ res_tab <- tabItem(
     status = "success"
   ),
   textAreaInput("res_comments", "Comments"),
-  textAreaInput("prep_suggestions", "Optional Suggestions")
+  textAreaInput("res_suggestions", "Optional Suggestions")
 )

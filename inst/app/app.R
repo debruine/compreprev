@@ -56,12 +56,43 @@ ui <- dashboardPage(
 
 # server ----
 server <- function(input, output, session) {
-  ## load_json ----
-  observeEvent(input$load_json, {
-    debug_msg("load_json")
+  ## load_crr ----
+  observeEvent(input$load_crr, {
+    debug_msg("load_crr")
     
     tryCatch({
-      j <- jsonlite::read_json(input$load_json$datapath)
+      j <- jsonlite::read_json(input$load_crr$datapath)
+      debug_msg(j)
+      
+      # update text inputs
+      updateTextInput(session, "intro_title", value = j$title)
+      updateTextInput(session, "intro_reviewer", value = j$reviewer)
+      updateTextInput(session, "prep_link", value = j$links)
+      updateTextInput(session, "run_time", value = j$run_time)
+      
+      # update text areas
+      updateTextAreaInput(session, "prep_comments", value = j$comments$prep)
+      updateTextAreaInput(session, "run_comments", value = j$comments$run)
+      updateTextAreaInput(session, "res_comments", value = j$comments$res)
+      updateTextAreaInput(session, "prep_suggestions", value = j$suggestions$prep)
+      updateTextAreaInput(session, "run_suggestions", value = j$suggestions$run)
+      updateTextAreaInput(session, "res_suggestions", value = j$suggestions$res)
+      
+      updateTextAreaInput(session, "res_major", value = j$res$major)
+      updateTextAreaInput(session, "res_minor", value = j$res$minor)
+      updateTextAreaInput(session, "res_missing", value = j$res$missing)
+      
+      # update checkboxes
+      updateAwesomeCheckboxGroup(session, "prep_red", selected = j$issues$prep$red)
+      updateAwesomeCheckboxGroup(session, "prep_yellow", selected = j$issues$prep$yellow)
+      updateAwesomeCheckboxGroup(session, "prep_green", selected = j$issues$prep$green)
+      updateAwesomeCheckboxGroup(session, "res_red", selected = j$issues$res$red)
+      updateAwesomeCheckboxGroup(session, "res_yellow", selected = j$issues$res$yellow)
+      updateAwesomeCheckboxGroup(session, "res_green", selected = j$issues$res$green)
+      updateAwesomeCheckboxGroup(session, "run_red", selected = j$issues$run$red)
+      updateAwesomeCheckboxGroup(session, "run_yellow", selected = j$issues$run$yellow)
+      updateAwesomeCheckboxGroup(session, "run_green", selected = j$issues$run$green)
+      
     }, error = function(e) {
       shinyjs::alert(e$message)
     })
@@ -71,53 +102,25 @@ server <- function(input, output, session) {
   output$json_text <- renderText({
     debug_msg("json_text")
     
-    v <- list(
-      title = input$intro_title,
-      reviewer = input$intro_reviewer,
-      issues = list(
-        prep = list(
-          red = input$prep_red,
-          yellow = input$prep_yellow,
-          green = input$prep_green),
-        run = list(
-          red = input$run_red,
-          yellow = input$run_yellow,
-          green = input$run_green),
-        res = list(
-          red = input$res_red,
-          yellow = input$res_yellow,
-          green = input$res_green)
-      ),
-      comments = list(
-        prep = input$prep_comments,
-        run = input$run_comments,
-        res = input$res_comments
-      ),
-      suggestions = list(
-        prep = input$prep_suggestions,
-        run = input$run_suggestions,
-        res = input$res_suggestions
-      ),
-      res = list(
-        major = input$res_major,
-        minor = input$res_minor,
-        missing = input$res_missing
-      )
-    )
-    
-    j <- jsonlite::toJSON(v, auto_unbox = TRUE)
-    jsonlite::prettify(j)
+    get_info(input) |>
+      jsonlite::toJSON(auto_unbox = TRUE) |>
+      jsonlite::prettify()
   })
   
-  ## download_json ----
-  output$download_json <- downloadHandler(
+  ## download_crr ----
+  output$download_crr <- downloadHandler(
     filename = function() {
-      debug_msg("download_json")
-      paste0("file", ".json")
+      debug_msg("download_crr")
+      input$intro_title |>
+        gsub("[^A-Za-z0-9]", "-", x = _) |>
+        gsub("-+", "-", x = _) |>
+        paste0("_", Sys.Date(), ".crr")
     },
     content = function(file) {
-      j <- "json goes here"
-      write(j, file)
+      get_info(input) |>
+       jsonlite::toJSON(auto_unbox = TRUE) |>
+       jsonlite::prettify() |>
+       write(file)
     }
   )
   

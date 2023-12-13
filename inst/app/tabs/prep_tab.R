@@ -24,7 +24,7 @@ prep_tab <- tabItem(
     ),
     status = "danger"
   ),
-  h3("Critial Issues", class="critical-issue"),
+  h3("Critical Issues", class="critical-issue"),
   awesomeCheckboxGroup(
     inputId = "prep_yellow",
     label = "", 
