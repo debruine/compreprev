@@ -23,7 +23,13 @@ intro_tab <- tabItem(
   h2("Introduction"),
   fileInput("load_json", "Load from JSON", width = "100%"),
   textInput("intro_title", "Title or reference to the paper/project"),
-  textInput("intro_reviewer", "Name of the reviewer")
+  textInput("intro_reviewer", "Name of the reviewer"),
+  
+  p("This app is designed to facilitate review of the computational reproducibility of a report. It can be used by authors to evaluate the reproducibility of their own report, and it can be used by external reviewers to evaluate whether someone else's report is reproducible."),
+  p("To use the app, click through each tab, noting whether each element is present and whether any problems arise during the review. The items in each tab are organized by importance for establishing the computational reproducibility of the report."),
+  p("Items highlighted in red reflect critical issues. If there is a problem with a critical element, then either the review cannot continue (e.g., for missing files) or the reproducibility check failed (e.g., when results from statistical output do not match those in the report)."),
+  HTML("<p>Items highlighted in yellow are informational issues. If an informational issue exists, review can continue, but authors may wish to update some feature of their project to improve computational reproducibility or to increase clarity. To receive the Computational Reproducibility badge at <i>Psychological Science</i>, issues with informational items need to be resolved.</p>"),
+  p("For authors: Before beginning this reproducibility check, make sure that your code is carefully commented to indicate how the code maps on to the results in the report. For example, comments might indicate that \"This code creates the results reported in Table 1\" or \"This code runs a t-test reported in the first paragraph of the Results section.\"")
 )
 
 ### prep_tab ----
@@ -31,15 +37,23 @@ intro_tab <- tabItem(
 prep_tab <- tabItem(
   tabName = "prep_tab",
   h2("Can you access the the open data and code?"),
-  textInput("prep_link", "What is the link to the data and code (ideally, link to a single overview page, use ';' to separate multiple links if necessary"),
+  box(width = 12, collapsible = TRUE, collapsed = TRUE, title = "Instructions",
+      p("Please provide links to the open data and code. Ideally, you should link to a single, well-organized project page that includes code, data, any information needed to reproduce the report. If you include multiple links, separate them with a semicolon (;)."),
+      p("The main project page must have a file called \"README.txt\" (in plain-text format) that provides the necessary information to reproduce the report (see template). Authors may wish to provide a very complete readme file that describes many details of the research project, but at a minimum, this file should provide information about the software (and hardware, if necessary) to run the analyses, as well as an overview of the code and data files that exist. If multiple code files are included, instructions on the order in which they need to be run should be included. If the code takes a very long time to run, this should be noted."),
+      p("We recommend that the project page include a codebook describing all variables used in the analyses.")
+  ),
+  
+  textInput("prep_link", "What is the link to the data and code"),
   h3("Blocking Issues", class="blocking-issue"),
   awesomeCheckboxGroup(
     inputId = "prep_red",
     label = "", 
     choices = c(
-      "Links broken" = "links_broken",
-      "Files inaccessible/corrupted" = "no_file",
-      "Hardware/software/time requirements not feasible" = "not_feasible",
+      "Links are broken, inaccesible, or lead to an incorrect page" = "links_broken",
+      "Code files are missing" = "no_code",
+      "Data files are missing" = "no_data",
+      "Files inaccessible/corrupted" = "file_corruption",
+      "Hardware/software/time requirements not feasible (e.g., proprietary software; requires supercomputer)" = "not_feasible",
       "Other" = "prep_red_other"
     ),
     status = "danger"
@@ -49,10 +63,10 @@ prep_tab <- tabItem(
     inputId = "prep_yellow",
     label = "", 
     choices = c(
-      "Links to anonymous version" = "anon",
+      "Links to anonymous version (e.g., 'view-only' version of an OSF page)" = "anon",
       "Location of relevant files not clear" = "file_loc",
       "README is not a plain text format" = "readme_text",
-      "No data codebook" = "no_codebook",
+      "No codebook describing variables is available" = "no_codebook",
       "Other" = "prep_yellow_other"
     ),
     status = "warning"
@@ -79,7 +93,8 @@ prep_tab <- tabItem(
 
 run_tab <- tabItem(
   tabName = "run_tab",
-  h2("Can you run the code?"),
+  h2("Does the code run?"),
+  p("This page describes issues that may arise when attempting to run the code provided in the project repository."),
   h3("Blocking Issues", class="blocking-issue"),
   awesomeCheckboxGroup(
     inputId = "run_red",
@@ -264,7 +279,7 @@ server <- function(input, output, session) {
     )
     
     j <- jsonlite::toJSON(v, auto_unbox = TRUE)
-    jsonlite::prettify(j, )
+    jsonlite::prettify(j)
   })
   
   ## download_json ----
