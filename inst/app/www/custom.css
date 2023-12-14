@@ -1,12 +1,25 @@
 /* app-specific css */
-.fatal-issue { color: #D9534F !important; }
-.critical-issue { color: #F0AD4E !important; }
-.required { color: #5CB85C !important; }
-
 .crr-item .shiny-input-container {
-  float: left !important;
+  float: left;
 }
 
-.crr-item .shiny-option-group .radio {
-  color: "red" !important;
+.crr-item .radio span {
+  display: none;
+}
+.crr-item .radio label {
+  border: 2px solid #D9534F;
+  background-color: #D9534F;
+  border-radius: 1em;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.crr-item .radio:nth-child(2) label {
+  border: 2px solid #F0AD4E;
+  background-color: #F0AD4E;
+}
+
+.crr-item .radio:nth-child(3) label {
+  border: 2px solid #5CB85C;
+  background-color: #5CB85C;
 }

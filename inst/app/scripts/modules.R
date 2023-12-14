@@ -9,8 +9,8 @@ item_ui <- function(id, title, desc, issues = c()) {
       width = 12,
       p(desc),
       radioButtons(ns("tl"), "", c("R", "Y", "G"), 
-                   selected = character(0),
-                   width = "15%"),
+                        selected = character(0),
+                        width = "15%"),
       textAreaInput(ns("comment"), "Comments", width = "85%"),
       checkboxGroupInput(ns("issues"), "Common Issues", choices = issues)
   )
