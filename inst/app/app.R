@@ -136,6 +136,18 @@ server <- function(input, output, session) {
       write(j, file)
     }
   )
+  
+  ## download_readme ----
+  output$download_readme <- downloadHandler(
+    filename = function() {
+      debug_msg("download_readme")
+      "README.txt"
+    },
+    content = function(file) {
+      j <- readLines("README.txt")
+      write(j, file)
+    }
+  )
 } 
 
 shinyApp(ui, server)

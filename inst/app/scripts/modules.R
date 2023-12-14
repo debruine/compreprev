@@ -1,7 +1,8 @@
 item_ui <- function(id, title, desc, issues = c()) {
   ns <- NS(id)
   
-  box(title = title,
+  box(id = ns("box"),
+      title = title,
       solidHeader = TRUE,
       collapsible = TRUE,
       collapsed = TRUE,
@@ -18,18 +19,12 @@ item_ui <- function(id, title, desc, issues = c()) {
 
 itemServer <- function(id) {
   moduleServer(id, function(input, output, session) {
-    info <- reactiveVal(NULL)
-    
-    observeEvent(info(), {
-      debug_msg(id, "-info")
-      
-      if (is.null(info())) {
-        list(tl = input$tl,
-             comment = input$comment,
-             issues = input$issues) |> info()
-      }
+    observeEvent(input$tl, {
+      shinyjs::addClass(paste0(id, "-tl"), "danger")
     })
     
-    return(info)
+    return(list(tl = input$tl,
+                comment = input$comment,
+                issues = input$issues))
   })
 }

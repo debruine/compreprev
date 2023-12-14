@@ -6,6 +6,7 @@ prep_tab <- tabItem(
   box(width = 12, collapsible = TRUE, collapsed = FALSE, title = "Instructions",
       p("Please provide links to the open data and code. Ideally, you should link to a single, well-organized project page that includes code, data, any information needed to reproduce the report. If you include multiple links, separate them with a semicolon (;)."),
       p("The main project page must have a file called \"README.txt\" (in plain-text format) that provides the necessary information to reproduce the report (see template). Authors may wish to provide a very complete readme file that describes many details of the research project, but at a minimum, this file should provide information about the software (and hardware, if necessary) to run the analyses, as well as an overview of the code and data files that exist. If multiple code files are included, instructions on the order in which they need to be run should be included. If the code takes a very long time to run, this should be noted."),
+      downloadButton("download_readme", "Download Template README"),
       p("We recommend that the project page include a codebook describing all variables used in the analyses.")
   ),
   
