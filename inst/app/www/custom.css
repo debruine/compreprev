@@ -2,3 +2,11 @@
 .fatal-issue { color: #D9534F !important; }
 .critical-issue { color: #F0AD4E !important; }
 .required { color: #5CB85C !important; }
+
+.crr-item .shiny-input-container {
+  float: left !important;
+}
+
+.crr-item .shiny-option-group .radio {
+  color: "red" !important;
+}

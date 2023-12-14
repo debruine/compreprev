@@ -10,11 +10,11 @@ suppressPackageStartupMessages({
 
 ## functions ----
 source("scripts/func.R") # helper functions
-source("scripts/modules.R")
 
 ## tabs ----
 source("tabs/intro_tab.R")
 source("tabs/prep_tab.R")
+source("tabs/run_tab.R")
 source("tabs/res_tab.R")
 source("tabs/fb_tab.R")
 
@@ -30,6 +30,7 @@ ui <- dashboardPage(
             id = "tabs",
             menuItem("Intro", tabName = "intro_tab", icon = icon("star")),
             menuItem("Prep", tabName = "prep_tab", icon = icon("cog")),
+            menuItem("Run", tabName = "run_tab", icon = icon("person-running")),
             menuItem("Results", tabName = "res_tab", icon = icon("chart-simple")),
             menuItem("Feedback", tabName = "fb_tab", icon = icon("comments"))
         )
@@ -45,6 +46,7 @@ ui <- dashboardPage(
         tabItems(
             intro_tab,
             prep_tab,
+            run_tab,
             res_tab,
             fb_tab
         )
@@ -68,6 +70,28 @@ server <- function(input, output, session) {
       updateTextInput(session, "prep_link", value = j$links)
       updateTextInput(session, "run_time", value = j$run_time)
       
+      # update text areas
+      updateTextAreaInput(session, "prep_comments", value = j$comments$prep)
+      updateTextAreaInput(session, "run_comments", value = j$comments$run)
+      updateTextAreaInput(session, "res_comments", value = j$comments$res)
+      updateTextAreaInput(session, "prep_suggestions", value = j$suggestions$prep)
+      updateTextAreaInput(session, "run_suggestions", value = j$suggestions$run)
+      updateTextAreaInput(session, "res_suggestions", value = j$suggestions$res)
+      
+      updateTextAreaInput(session, "res_major", value = j$res$major)
+      updateTextAreaInput(session, "res_minor", value = j$res$minor)
+      updateTextAreaInput(session, "res_missing", value = j$res$missing)
+      
+      # update checkboxes
+      updateAwesomeCheckboxGroup(session, "prep_red", selected = j$issues$prep$red)
+      updateAwesomeCheckboxGroup(session, "prep_yellow", selected = j$issues$prep$yellow)
+      updateAwesomeCheckboxGroup(session, "prep_green", selected = j$issues$prep$green)
+      updateAwesomeCheckboxGroup(session, "res_red", selected = j$issues$res$red)
+      updateAwesomeCheckboxGroup(session, "res_yellow", selected = j$issues$res$yellow)
+      updateAwesomeCheckboxGroup(session, "res_green", selected = j$issues$res$green)
+      updateAwesomeCheckboxGroup(session, "run_red", selected = j$issues$run$red)
+      updateAwesomeCheckboxGroup(session, "run_yellow", selected = j$issues$run$yellow)
+      updateAwesomeCheckboxGroup(session, "run_green", selected = j$issues$run$green)
       
     }, error = function(e) {
       shinyjs::alert(e$message)

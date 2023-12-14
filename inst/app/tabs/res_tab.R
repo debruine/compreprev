@@ -7,44 +7,17 @@ res_tab <- tabItem(
       p("For any discrepancies, please quote the relevant report text (or Figure/Table number) and code (by line numbers) in the boxes below.")
   ),
   
-  h3("Fatal Issues", class="fatal-issue"),
-  awesomeCheckboxGroup(
-    inputId = "res_red",
-    label = "", 
-    choices = c(
-      "Mapping between output and report too unclear to compare" = "unclear_mapping",
-      "At least one major discrepancy between output and report" = "major_discrepancy",
-      "At least one missing result in the output" = "missing_result",
-      "Other" = "res_red_other"
-    ),
-    status = "danger"
-  ),
-  textAreaInput("res_major", "Major Discrepancies"),
-  textAreaInput("res_missing", "Missing Results"),
+  textInput("run_time", "Approximately how long did it take to run the code? (e.g., '5 minutes' or '3 hours')"),
   
-  h3("Critical Issues", class="critical-issue"),
-  awesomeCheckboxGroup(
-    inputId = "res_yellow",
-    label = "", 
-    choices = c(
-      "Mapping between output and report needs improvement" = "mapping_improve",
-      "At least one minor discrepancy between output and report (e.g., rounding error)" = "minor_discrepancy",
-      "Data figures not created with code*" = "figure_code",
-      "Other" = "res_yellow_other"
-    ),
-    status = "warning"
+  item_ui("results", "Results", 
+          "All results in the report match the correpsonding value in the code",
+          c("Major discrepancy" = "results_major",
+            "Minor discrepancy" = "results_minor",
+            "Missing result" = "results_missing",
+            "Figures not created with code" = "results_figure")
   ),
-  textAreaInput("res_minor", "Minor Discrepancies"),
-  h3("Required", class="required"),
-  awesomeCheckboxGroup(
-    inputId = "res_green",
-    label = "", 
-    choices = c(
-      "All results in the report can be mapped to output" = "all_results_mapped",
-      "All results match values in the output" = "all_results_match"
-    ),
-    status = "success"
-  ),
-  textAreaInput("res_comments", "Comments"),
-  textAreaInput("res_suggestions", "Optional Suggestions")
+  
+  textAreaInput("res_major", "Major Discrepancies", ),
+  textAreaInput("res_missing", "Missing Results"),
+  textAreaInput("res_minor", "Minor Discrepancies")
 )

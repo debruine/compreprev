@@ -10,47 +10,58 @@ prep_tab <- tabItem(
   ),
   
   textInput("prep_link", "What is the link to the data and code"),
-  h3("Fatal Issues", class="fatal-issue"),
-  awesomeCheckboxGroup(
-    inputId = "prep_red",
-    label = "", 
-    choices = c(
-      "Links are broken, inaccesible, or lead to an incorrect page" = "links_broken",
-      "Code files are missing" = "no_code",
-      "Data files are missing" = "no_data",
-      "Files inaccessible/corrupted" = "file_corruption",
-      "Hardware/software/time requirements not feasible (e.g., proprietary software; requires supercomputer)" = "not_feasible",
-      "Other" = "prep_red_other"
-    ),
-    status = "danger"
+  
+  item_ui("links", "Links", 
+          "Links are provided in the paper and work correctly", 
+          c("Links not provided" = "link_not_provided",
+            "Links do not work" = "links_not_work",
+            "Links go to wrong page" = "links_wrong",
+            "Links go to anonymous project" = "links_anon")
   ),
-  h3("Critical Issues", class="critical-issue"),
-  awesomeCheckboxGroup(
-    inputId = "prep_yellow",
-    label = "", 
-    choices = c(
-      "Links to anonymous version (e.g., 'view-only' version of an OSF page)" = "anon",
-      "Location of relevant files not clear" = "file_loc",
-      "README is not a plain text format" = "readme_text",
-      "No codebook describing variables is available" = "no_codebook",
-      "Other" = "prep_yellow_other"
-    ),
-    status = "warning"
+  
+  item_ui("code", "Code Files", 
+          "Code files are present and not corrupted", 
+          c("One or more code files does not exist" = "code_missing",
+          "One or more code files is corrupted" = "code_corrupt")
   ),
-  h3("Required", class="required"),
-  awesomeCheckboxGroup(
-    inputId = "prep_green",
-    label = "", 
-    choices = c(
-      "Links in paper" = "links",
-      "README present" = "readme",
-      "README contains software/hardware requirements" = "readme_req",
-      # "README contains an indication of run time",
-      "README describes project structure" = "readme_structure",
-      "README explains how to run code (e.g., order)" = "readme_code"
-    ),
-    status = "success"
+  
+  item_ui("data", "Data Files", 
+          "Data files are present and not corrupted", 
+          c("One or more data files does not exist" = "code_missing",
+            "One or more data files is corrupted" = "code_corrupt")
   ),
-  textAreaInput("prep_comments", "Comments"),
-  textAreaInput("prep_suggestions", "Optional Suggestions")
+  
+  item_ui("resources", "Resources", 
+          "Software/hardware/run-time requirements are feasible", 
+          c("Software not available" = "resources_software",
+            "Hardware not available" = "resources_hardware",
+            "Run-time is too long" = "resources_long_run")
+  ),
+  
+  item_ui("readme", "README", 
+          "Repository includes a usable README files that explains how to reproduce analyses", 
+          c("No README" = "readme_none",
+            "Not a text file" = "readme_format",
+            "Does not explain how to reproduce results" = "readme_repro",
+            "Does not include software/hardware requirements" = "readme_req",
+            "No runtime estimate" = "readme_runtime")
+  ),
+  
+  item_ui("codebook", "Codebook", 
+          "Codebook is included (if needed)", 
+          c("Codebook is missing" = "codebook_missing",
+            "Codebook is incomplete" = "codebook_incomplete")
+  ),
+  
+  item_ui("errors", "Errors/Warnings", 
+          "Code runs without errors", 
+          c("Critical error prevents code from running" = "error_critical",
+            "Non-critical error/warning" = "error_non_critical",
+            "Missing code/functions" = "error_missing")
+  ),
+  
+  item_ui("mapping", "Mapping", 
+          "Output can be mapped to report", 
+          c("Mapping between output and code not clear" = "mapping_unclear")
+  )
 )

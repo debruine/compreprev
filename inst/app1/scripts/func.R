@@ -18,6 +18,30 @@ get_info <- function(input) {
     reviewer = input$intro_reviewer,
     links = input$prep_link,
     run_time = input$run_time,
+    issues = list(
+      prep = list(
+        red = input$prep_red,
+        yellow = input$prep_yellow,
+        green = input$prep_green),
+      run = list(
+        red = input$run_red,
+        yellow = input$run_yellow,
+        green = input$run_green),
+      res = list(
+        red = input$res_red,
+        yellow = input$res_yellow,
+        green = input$res_green)
+    ),
+    comments = list(
+      prep = input$prep_comments,
+      run = input$run_comments,
+      res = input$res_comments
+    ),
+    suggestions = list(
+      prep = input$prep_suggestions,
+      run = input$run_suggestions,
+      res = input$res_suggestions
+    ),
     res = list(
       major = input$res_major,
       minor = input$res_minor,
