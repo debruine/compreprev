@@ -18,8 +18,18 @@ item_ui <- function(id, title, desc, issues = c()) {
 
 itemServer <- function(id) {
   moduleServer(id, function(input, output, session) {
-    return(list(tl = input$tl,
-                comment = input$comment,
-                issues = input$issues))
+    info <- reactiveVal(NULL)
+    
+    observeEvent(info(), {
+      debug_msg(id, "-info")
+      
+      if (is.null(info())) {
+        list(tl = input$tl,
+             comment = input$comment,
+             issues = input$issues) |> info()
+      }
+    })
+    
+    return(info)
   })
 }

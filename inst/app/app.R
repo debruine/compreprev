@@ -60,13 +60,32 @@ server <- function(input, output, session) {
     
     tryCatch({
       j <- jsonlite::read_json(input$load_crr$datapath)
-      debug_msg(j)
       
       # update text inputs
       updateTextInput(session, "title", value = j$title)
       updateTextInput(session, "reviewer", value = j$reviewer)
       updateTextInput(session, "link", value = j$link)
       updateTextInput(session, "run_time", value = j$run_time)
+      
+      # update traffic lights and sections
+      items <- c("links", "code", "data", "resources", "readme", 
+                 "codebook", "errors", "mapping", "results")
+      debug_msg(j)
+    
+      for (i in items) {
+        item <- j[[i]]
+        updateRadioButtons(session, paste0(i, "-tl"), 
+                           selected = item$tl)
+        updateTextAreaInput(session, paste0(i, "-comment"), 
+                            value = item$comment)
+        updateCheckboxGroupInput(session, paste0(i, "-issues"), 
+                                 selected = item$issues)
+      }
+      
+      # update res
+      updateTextAreaInput(session, "res_major", value = j$res$major)
+      updateTextAreaInput(session, "res_minor", value = j$res$minor)
+      updateTextAreaInput(session, "res_missing", value = j$res$missing)
       
       
     }, error = function(e) {
@@ -87,7 +106,7 @@ server <- function(input, output, session) {
   output$download_crr <- downloadHandler(
     filename = function() {
       debug_msg("download_crr")
-      input$intro_title |>
+      input$title |>
         gsub("[^A-Za-z0-9]", "-", x = _) |>
         gsub("-+", "-", x = _) |>
         paste0("_", Sys.Date(), ".crr")
