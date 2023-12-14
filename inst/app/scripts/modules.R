@@ -1,4 +1,4 @@
-item_ui <- function(id, title, desc, cb = c()) {
+item_ui <- function(id, title, desc, issues = c()) {
   ns <- NS(id)
   
   box(title = title,
@@ -12,6 +12,14 @@ item_ui <- function(id, title, desc, cb = c()) {
                    selected = character(0),
                    width = "15%"),
       textAreaInput(ns("comment"), "Comments", width = "85%"),
-      checkboxGroupInput(ns("cb"), "Common Issues", choices = cb)
+      checkboxGroupInput(ns("issues"), "Common Issues", choices = issues)
   )
+}
+
+itemServer <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    return(list(tl = input$tl,
+                comment = input$comment,
+                issues = input$issues))
+  })
 }

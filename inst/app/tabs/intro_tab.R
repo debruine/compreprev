@@ -13,6 +13,6 @@ intro_tab <- tabItem(
     p("The Feedback tab also provides an option to save a narrative report of the results of the reproducibility check.")
   ),
   fileInput("load_crr", "Load from CompRepRev file", width = "100%"),
-  textInput("intro_title", "Title or reference to the paper/project"),
-  textInput("intro_reviewer", "Name of the reviewer")
+  textInput("title", "Title or reference to the paper/project"),
+  textInput("reviewer", "Name of the reviewer")
 )

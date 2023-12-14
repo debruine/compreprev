@@ -9,7 +9,7 @@ prep_tab <- tabItem(
       p("We recommend that the project page include a codebook describing all variables used in the analyses.")
   ),
   
-  textInput("prep_link", "What is the link to the data and code"),
+  textInput("link", "What is the link to the data and code?"),
   
   item_ui("links", "Links", 
           "Links are provided in the paper and work correctly", 

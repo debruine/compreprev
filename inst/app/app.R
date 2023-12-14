@@ -63,9 +63,9 @@ server <- function(input, output, session) {
       debug_msg(j)
       
       # update text inputs
-      updateTextInput(session, "intro_title", value = j$title)
-      updateTextInput(session, "intro_reviewer", value = j$reviewer)
-      updateTextInput(session, "prep_link", value = j$links)
+      updateTextInput(session, "title", value = j$title)
+      updateTextInput(session, "reviewer", value = j$reviewer)
+      updateTextInput(session, "link", value = j$link)
       updateTextInput(session, "run_time", value = j$run_time)
       
       
