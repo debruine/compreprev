@@ -16,11 +16,10 @@ source("scripts/modules.R")
 source("tabs/intro_tab.R")
 source("tabs/prep_tab.R")
 source("tabs/res_tab.R")
-source("tabs/fb_tab.R")
 
 ## UI ----
 ui <- dashboardPage(
-    skin = "black",
+    skin = "blue",
     dashboardHeader(title = "CompRepRev", 
         titleWidth = "calc(100% - 44px)" # puts sidebar toggle on right
     ),
@@ -30,9 +29,13 @@ ui <- dashboardPage(
             id = "tabs",
             menuItem("Intro", tabName = "intro_tab", icon = icon("star")),
             menuItem("Prep", tabName = "prep_tab", icon = icon("cog")),
-            menuItem("Results", tabName = "res_tab", icon = icon("chart-simple")),
-            menuItem("Feedback", tabName = "fb_tab", icon = icon("comments"))
-        )
+            menuItem("Results", tabName = "res_tab", icon = icon("chart-simple"))
+           # menuItem("Feedback", tabName = "fb_tab", icon = icon("comments"))
+        ),
+        fileInput("load_crr", "Load from CompRepRev File", width = "100%"),
+        #downloadButton("download_fb", "Download Feedback"),
+        downloadButton("download_crr", "Download CompRepRev File", width = "100%"),
+        downloadButton("download_readme", "Download Template README")
     ),
     dashboardBody(
         shinyjs::useShinyjs(),
@@ -45,8 +48,7 @@ ui <- dashboardPage(
         tabItems(
             intro_tab,
             prep_tab,
-            res_tab,
-            fb_tab
+            res_tab
         )
     )
 )
@@ -54,6 +56,10 @@ ui <- dashboardPage(
 
 # server ----
 server <- function(input, output, session) {
+  items <- c("links", "code", "data", "resources", "readme", 
+             "codebook", "errors", "mapping", "results")
+  for (item in items) itemServer(item)
+  
   ## load_crr ----
   observeEvent(input$load_crr, {
     debug_msg("load_crr")
@@ -68,8 +74,6 @@ server <- function(input, output, session) {
       updateTextInput(session, "run_time", value = j$run_time)
       
       # update traffic lights and sections
-      items <- c("links", "code", "data", "resources", "readme", 
-                 "codebook", "errors", "mapping", "results")
       debug_msg(j)
     
       for (i in items) {
@@ -94,13 +98,13 @@ server <- function(input, output, session) {
   }, ignoreNULL = TRUE)
   
   ## json_text  ----
-  output$json_text <- renderText({
-    debug_msg("json_text")
-    
-    get_info(input) |>
-      jsonlite::toJSON(auto_unbox = TRUE) |>
-      jsonlite::prettify()
-  })
+  # output$json_text <- renderText({
+  #   debug_msg("json_text")
+  #   
+  #   get_info(input) |>
+  #     jsonlite::toJSON(auto_unbox = TRUE) |>
+  #     jsonlite::prettify()
+  # })
   
   ## download_crr ----
   output$download_crr <- downloadHandler(

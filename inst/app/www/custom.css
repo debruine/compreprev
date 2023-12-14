@@ -6,6 +6,15 @@
 .crr-item .radio span {
   display: none;
 }
+.red-light {
+  border: 2px solid #D9534F;
+}
+.yellow-light {
+  border: 2px solid #F0AD4E;
+}
+.green-light {
+  border: 2px solid #5CB85C;
+}
 .crr-item .radio label {
   border: 2px solid #D9534F;
   background-color: #D9534F;

@@ -14,7 +14,8 @@ res_tab <- tabItem(
           c("Major discrepancy" = "results_major",
             "Minor discrepancy" = "results_minor",
             "Missing result" = "results_missing",
-            "Figures not created with code" = "results_figure")
+            "Figures not created with code" = "results_figure"),
+          collapsed = FALSE
   ),
   
   textAreaInput("res_major", "Major Discrepancies", ),
