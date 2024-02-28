@@ -8,6 +8,8 @@ prep_tab <- tabItem(
   textInput("reviewer", "Name of the reviewer"),
   textInput("link", "What is the link to the data and code? (separate multiple links with ;)"),
   
+  h4("Click on each section below"),
+  
   item_ui("links", "Links", 
           "Links are provided in the paper and work correctly. There should ideally be a single link to a well-organized project page that includes code, data, any information needed to reproduce the report.", 
           c("Links not provided" = "link_not_provided",

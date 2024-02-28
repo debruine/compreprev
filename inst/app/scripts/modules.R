@@ -20,15 +20,15 @@ item_ui <- function(id, title, desc, issues = c(), collapsed = TRUE) {
 itemServer <- function(id) {
   moduleServer(id, function(input, output, session) {
     observeEvent(input$tl, {
-      selector <- paste0("$('#", id, "-box').parent()")
+      selector <- paste0(id, "-box")
       class <- "box-success"
       if (input$tl == "red") class <- "box-danger"
       if (input$tl == "yellow") class <- "box-warning"
-      shinyjs::removeClass(id = NULL, selector = selector, "box-danger", asis = TRUE)
-      shinyjs::removeClass(id = NULL, selector = selector, "box-warning", asis = TRUE)
-      shinyjs::removeClass(id = NULL, selector = selector, "box-success", asis = TRUE)
-      shinyjs::addClass(id = NULL, selector = selector, class, asis = TRUE)
-      debug_msg(class)
+      
+      shinyjs::removeClass(id = selector, "box-danger", asis = TRUE)
+      shinyjs::removeClass(id = selector, "box-warning", asis = TRUE)
+      shinyjs::removeClass(id = selector, "box-success", asis = TRUE)
+      shinyjs::addClass(id = selector, class, asis = TRUE)
     })
   })
 }

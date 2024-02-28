@@ -34,9 +34,16 @@ ui <- dashboardPage(
         ),
         fileInput("load_crr", "Load from CompRepRev File", width = "100%"),
         #downloadButton("download_fb", "Download Feedback"),
-        downloadButton("download_crr", "Download CompRepRev File", width = "100%"),
-        downloadButton("download_readme", "Download Template README")
-    ),
+        div(
+          downloadButton("download_crr", 
+                         "Download CompRepRev File", 
+                         width = "100%"),
+          br(),br(),
+          downloadButton("download_readme", 
+                         "Download Template README", 
+                         width = "100%"),
+          class= "shiny-input-container"
+    )),
     dashboardBody(
         shinyjs::useShinyjs(),
         tags$head(

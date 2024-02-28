@@ -5,10 +5,9 @@ account: lisad
 server: rstudio-connect.psy.gla.ac.uk
 hostUrl: https://rstudio-connect.psy.gla.ac.uk/__api__
 appId: 41
-bundleId: 61
-url: https://rstudio-connect.psy.gla.ac.uk/content/700b38cf-e256-4d6e-9eb2-f01d0f0f39b1/
-when: 1702358224.10603
-lastSyncTime: 1702358224.10607
+bundleId: 62
+url: https://rstudio-connect.psy.gla.ac.uk/compreprev/
+when: 1702532857.58319
+lastSyncTime: 1702532857.58321
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: www/img/psyteachr.png|www/img/shinyintro.png

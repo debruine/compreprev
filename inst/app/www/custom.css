@@ -1,4 +1,34 @@
 /* app-specific css */
+
+
+.red-light, .yellow-light, .green-light {
+  padding: 0.5em;
+}
+.red-light::before {
+  content: '🔴 ';
+}
+.yellow-light::before {
+  content: '🟡 ';
+}
+.green-light::before {
+  content: '🟢 ';
+}
+
+.red-light {
+  border: 2px solid #D9534F;
+  background-color: #D9534F22;
+}
+
+.yellow-light {
+  border: 2px solid #F0AD4E;
+  background-color: #F0AD4E22;
+}
+.green-light {
+  border: 2px solid #5CB85C;
+  background-color: #5CB85C22;
+}
+
+/* crr-item */
 .crr-item .shiny-input-container {
   float: left;
 }
@@ -6,29 +36,68 @@
 .crr-item .radio span {
   display: none;
 }
-.red-light {
-  border: 2px solid #D9534F;
+
+.crr-item .radio input {
+  display: none;
 }
-.yellow-light {
-  border: 2px solid #F0AD4E;
-}
-.green-light {
-  border: 2px solid #5CB85C;
-}
-.crr-item .radio label {
-  border: 2px solid #D9534F;
-  background-color: #D9534F;
+
+.crr-item .radio label { }
+
+.crr-item .radio label::after {
+  border: 2px solid #D9534F33;
+  background-color: #D9534F66;
+  content: '🔴';
+  
+  display: inline-block;
   border-radius: 1em;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.4em;
+  height: 1.4em;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.4em;
+  opacity: 0.6;
 }
 
-.crr-item .radio:nth-child(2) label {
-  border: 2px solid #F0AD4E;
-  background-color: #F0AD4E;
+.crr-item .radio:nth-child(2) label::after {
+  border: 2px solid #F0AD4E33;
+  background-color: #F0AD4E66;
+  content: '🟡';
 }
 
-.crr-item .radio:nth-child(3) label {
-  border: 2px solid #5CB85C;
-  background-color: #5CB85C;
+.crr-item .radio:nth-child(3) label::after {
+  border: 2px solid #5CB85C33;
+  background-color: #5CB85C66;
+  content: '🟢';
+}
+
+.crr-item .radio label:has(> input:checked)::after {
+  border: 2px solid #D9534FFF;
+  background-color: #D9534FFF;
+  opacity: 1;
+}
+
+.crr-item .radio:nth-child(2) label:has(> input:checked)::after {
+  border: 2px solid #F0AD4EFF;
+  background-color: #F0AD4EFF;
+}
+
+.crr-item .radio:nth-child(3) label:has(> input:checked)::after {
+  border: 2px solid #5CB85CFF;
+  background-color: #5CB85CFF;
+}
+
+.box-solid .box-title::before {
+  content: '⚪️ ';
+}
+
+.box:has(> div.box-danger) .box-title::before {
+  content: '🔴 ';
+}
+
+.box:has(> div.box-warning) .box-title::before {
+  content: '🟡 ';
+}
+
+.box:has(> div.box-success) .box-title::before {
+  content: '🟢 ';
 }
