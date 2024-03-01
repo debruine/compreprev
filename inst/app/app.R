@@ -15,7 +15,9 @@ source("scripts/modules.R")
 ## tabs ----
 source("tabs/intro_tab.R")
 source("tabs/prep_tab.R")
+source("tabs/run_tab.R")
 source("tabs/res_tab.R")
+source("tabs/tips_tab.R")
 
 ## UI ----
 ui <- dashboardPage(
@@ -28,19 +30,25 @@ ui <- dashboardPage(
         sidebarMenu(
             id = "tabs",
             menuItem("Intro", tabName = "intro_tab", icon = icon("star")),
-            menuItem("Prep", tabName = "prep_tab", icon = icon("cog")),
-            menuItem("Results", tabName = "res_tab", icon = icon("chart-simple"))
+            menuItem("Prep", tabName = "prep_tab", 
+                     icon = icon("cog")),
+            menuItem("Run", tabName = "run_tab", 
+                     icon = icon("person-running")),
+            menuItem("Results", tabName = "res_tab", 
+                     icon = icon("chart-simple")),
            # menuItem("Feedback", tabName = "fb_tab", icon = icon("comments"))
+           menuItem("Tips", tabName = "tips_tab", icon = icon("circle-info"))
         ),
+        actionButton("reset", "Reset All"),
         fileInput("load_crr", "Load from CompRepRev File", width = "100%"),
         #downloadButton("download_fb", "Download Feedback"),
         div(
+          h4("Downloads"),
           downloadButton("download_crr", 
-                         "Download CompRepRev File", 
+                         "CompRepRev File", 
                          width = "100%"),
-          br(),br(),
           downloadButton("download_readme", 
-                         "Download Template README", 
+                         "Template README", 
                          width = "100%"),
           class= "shiny-input-container"
     )),
@@ -55,7 +63,9 @@ ui <- dashboardPage(
         tabItems(
             intro_tab,
             prep_tab,
-            res_tab
+            run_tab,
+            res_tab,
+            tips_tab
         )
     )
 )
@@ -66,6 +76,24 @@ server <- function(input, output, session) {
   items <- c("links", "code", "data", "resources", "readme", 
              "codebook", "errors", "mapping", "results")
   for (item in items) itemServer(item)
+  
+  ## reset ----
+  observeEvent(input$reset, {
+    debug_msg("reset")
+    
+    reset("shiny-tab-res_tab")
+    reset("shiny-tab-prep_tab")
+    
+    runjs("$('input[type=radio]').prop('checked',false);")
+    
+    # remove classes from crr-items
+    runjs("$('.crr-item')
+            .removeClass('box-danger')
+          .removeClass('box-warning')
+          .removeClass('box-success');")
+    
+    # TODO: reset crr-item inputs
+  })
   
   ## load_crr ----
   observeEvent(input$load_crr, {

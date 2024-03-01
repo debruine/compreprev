@@ -30,5 +30,4 @@ $(document).on("shiny:connected", function() {
            .find('[data-widget=collapse]')
            .click();
   });
-
 });

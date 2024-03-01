@@ -1,6 +1,7 @@
 Package: compreprev
 Title: Computational Reproducibility Review
-Version: 0.0.9004
+Date: 2023-03-01
+Version: 0.0.9005
 Authors@R: 
     c(person(given = "Lisa",
            family = "DeBruine",

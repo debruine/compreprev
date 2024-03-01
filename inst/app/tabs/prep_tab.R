@@ -2,11 +2,12 @@
 
 prep_tab <- tabItem(
   tabName = "prep_tab",
-  h2("Can you access the the open data and code?"),
+  h2("Access and Documentation"),
   
   textInput("title", "Title or reference to the paper/project"),
   textInput("reviewer", "Name of the reviewer"),
   textInput("link", "What is the link to the data and code? (separate multiple links with ;)"),
+  
   
   h4("Click on each section below"),
   
@@ -51,17 +52,5 @@ prep_tab <- tabItem(
           "Codebook is included (if needed). We recommend that the project page include a codebook describing all variables used in the analyses.", 
           c("Codebook is missing" = "codebook_missing",
             "Codebook is incomplete" = "codebook_incomplete")
-  ),
-  
-  item_ui("errors", "Errors/Warnings", 
-          "Code runs without errors", 
-          c("Critical error prevents code from running" = "error_critical",
-            "Non-critical error/warning" = "error_non_critical",
-            "Missing code/functions" = "error_missing")
-  ),
-  
-  item_ui("mapping", "Mapping", 
-          "Results values, figures and table from the report can be mapped to their origin in the corresponding script", 
-          c("Mapping not clear" = "mapping_unclear")
   )
 )

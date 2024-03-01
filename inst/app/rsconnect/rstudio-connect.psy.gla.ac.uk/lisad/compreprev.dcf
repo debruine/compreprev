@@ -5,9 +5,10 @@ account: lisad
 server: rstudio-connect.psy.gla.ac.uk
 hostUrl: https://rstudio-connect.psy.gla.ac.uk/__api__
 appId: 41
-bundleId: 62
+bundleId: 65
 url: https://rstudio-connect.psy.gla.ac.uk/compreprev/
-when: 1702532857.58319
-lastSyncTime: 1702532857.58321
+when: 1709138508.4467
+lastSyncTime: 1709138508.44671
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: www/.DS_Store
