@@ -37,7 +37,8 @@ ui <- dashboardPage(
             menuItem("Results", tabName = "res_tab", 
                      icon = icon("chart-simple")),
            # menuItem("Feedback", tabName = "fb_tab", icon = icon("comments"))
-           menuItem("Tips", tabName = "tips_tab", icon = icon("circle-info"))
+           menuItem("Tips", tabName = "tips_tab", icon = icon("circle-info")),
+           menuItem("Credit", tabName = "credit_tab", icon = icon("people-group"))
         ),
         actionButton("reset", "Reset All"),
         fileInput("load_crr", "Load from CompRepRev File", width = "100%"),
@@ -65,7 +66,8 @@ ui <- dashboardPage(
             prep_tab,
             run_tab,
             res_tab,
-            tips_tab
+            tips_tab,
+            credit_tab
         )
     )
 )
