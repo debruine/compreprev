@@ -6,3 +6,4 @@
 .quarto
 inst/app/rsconnect/
 inst/app/rsconnect/*
+docs

@@ -6,10 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-An R package containing a shiny app to help with computational
-reproducibility reviews.
-
-[Shiny App](https://rstudio-connect.psy.gla.ac.uk/compreprev) (draft)
+{compreprev} is an R package containing a shiny app to help with
+computational reproducibility reviews. You can also access the [shiny
+app](https://rstudio-connect.psy.gla.ac.uk/compreprev) online.
 
 ## Installation
 
@@ -26,3 +25,5 @@ And launch the shiny app with:
 ``` r
 compreprev::app()
 ```
+
+## Motivation
